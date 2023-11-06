@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AppMenu"
         tools:targetApi="31">
         <activity
+            android:name=".PlatillosCategoria"
+            android:exported="false" />
+        <activity
+            android:name=".ComprarPlatillo"
+            android:exported="false" />
+        <activity
             android:name=".PlatilloItem"
             android:exported="false" />
         <activity
@@ -22,7 +28,7 @@
             android:name=".ItemCategoria"
             android:exported="false" />
         <activity
-            android:name=".ItemHistorial"
+            android:name=".Cuentas"
             android:exported="false" />
         <activity
             android:name=".Historial"

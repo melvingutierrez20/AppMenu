@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ItemHistorial extends AppCompatActivity {
+public class PlatillosCategoria extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_historial);
+        setContentView(R.layout.activity_platillos_categoria);
     }
 }

@@ -8,7 +8,8 @@
     android:padding="4dp"
     android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/baseRosa">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCategorias"
@@ -25,8 +26,8 @@
                 android:id="@+id/ivCategoria"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@color/valle_dorado"
-                android:src="@drawable/icon_falta_foto"
+                android:background="#E18F8F"
+                android:src="@drawable/img_9"
                 android:scaleType="centerInside"
                 app:layout_constraintBottom_toTopOf="@+id/tvNomCategoria"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +42,7 @@
                 android:layout_marginHorizontal="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_bote_basura"
+                android:src="@drawable/baseline_delete_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,8 +54,7 @@
                 android:hint="NOMBRE CATEGORIA"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/gris_claro"
-                android:background="@color/gris_oscuro"
+                android:background="#E18F8F"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
