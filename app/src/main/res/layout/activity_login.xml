@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:id="@+id/create_account_text_view_btn"
-            android:text=" Registrame!"/>
+            android:text=" Registrarme!"/>
 
     </LinearLayout>
 

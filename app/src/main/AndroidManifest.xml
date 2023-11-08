@@ -43,7 +43,7 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".Splash"
+            android:name=".Opciones"
             android:exported="false" />
         <activity
             android:name=".AgregarCategoriaActivity"
@@ -52,7 +52,7 @@
             android:name=".CategoriasActivity"
             android:exported="false" />
         <activity
-            android:name=".Opciones"
+            android:name=".Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
