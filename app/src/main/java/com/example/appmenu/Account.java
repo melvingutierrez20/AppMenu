@@ -59,12 +59,12 @@ public class Account extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         changeInProgress(false);
                         if(task.isSuccessful()){
-                            Toast.makeText(Account.this, "Cuenta creada, Revisa tu correo para verificar", Toast.LENGTH_SHORT).show();
+                            Utility.showToast(Account.this, "Cuenta creada,Revisa tu correo para verificar");
                             firebaseAuth.getCurrentUser().sendEmailVerification();
                             firebaseAuth.signOut();
                             finish();
                         }else{
-                            Toast.makeText(Account.this,task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                            Utility.showToast(Account.this, task.getException().getLocalizedMessage());
                         }
 
                     }
