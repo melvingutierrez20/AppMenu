@@ -52,11 +52,12 @@
                 android:id="@+id/tvDescripcionPlatillo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
                 android:gravity="fill_horizontal"
                 android:hint="Descripción del platillo"
+                android:paddingVertical="5dp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
