@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,11 @@ public class Account extends AppCompatActivity {
         String password = passwordEditText.getText().toString();
         String confirmPassword = confirmPasswordEditText.getText().toString();
 
+        boolean isValidated = validateData(email,password,confirmPassword);
+        if (!isValidated){
+            return;
+        }
+
         createAccountInFirebase(email,password);
     }
     void createAccountInFirebase(String email,String password){
@@ -58,15 +64,21 @@ public class Account extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         changeInProgress(false);
-                        if(task.isSuccessful()){
-                            Utility.showToast(Account.this, "Cuenta creada,Revisa tu correo para verificar");
+                        if (task.isSuccessful()) {
+                            Utility.showToast(Account.this, "Cuenta creada, revisa tu correo para verificar");
                             firebaseAuth.getCurrentUser().sendEmailVerification();
                             firebaseAuth.signOut();
                             finish();
-                        }else{
-                            Utility.showToast(Account.this, task.getException().getLocalizedMessage());
-                        }
+                        } else {
+                            String errorMessage = "Error al crear la cuenta";
+                            Exception exception = task.getException();
 
+                            if (exception != null) {
+                                errorMessage = exception.getLocalizedMessage();
+                            }
+
+                            Utility.showToast(Account.this, errorMessage);
+                        }
                     }
                 }
         );
@@ -80,4 +92,23 @@ public class Account extends AppCompatActivity {
             createAccountBtn.setVisibility(View.VISIBLE);
         }
     }
+    boolean validateData(String email, String password, String confirmPassword) {
+        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Ingrese un correo válido");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(password) || password.length() < 6) {
+            passwordEditText.setError("La contraseña debe tener al menos 6 caracteres");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {
+            confirmPasswordEditText.setError("Las contraseñas no coinciden");
+            return false;
+        }
+
+        return true;
+    }
+
 }
