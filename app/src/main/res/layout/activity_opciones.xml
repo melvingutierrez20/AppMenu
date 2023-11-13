@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/imgCategoria"
             android:layout_width="220dp"
             android:layout_height="225dp"
             android:layout_gravity="center"
@@ -40,12 +41,13 @@
         >
 
         <ImageView
+            android:id="@+id/imgOrden"
             android:layout_width="210dp"
             android:layout_height="182dp"
-            android:src="@drawable/img_5"
-            android:scaleType="fitCenter"
             android:layout_gravity="center"
-            android:adjustViewBounds="true" />
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_5" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,6 +66,7 @@
         >
 
         <ImageView
+            android:id="@+id/imgHistorial"
             android:layout_width="210dp"
             android:layout_height="182dp"
             android:layout_gravity="center"
