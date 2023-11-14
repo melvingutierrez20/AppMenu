@@ -36,9 +36,13 @@ public class CategoriasActivity extends AppCompatActivity {
         addCategoriaBtn = findViewById(R.id.AddCategoriaBtn);
         categoriaModelList = new ArrayList<>();
         ac = new AdaptadorCategoria(this, categoriaModelList);
-        //layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ac = new AdaptadorCategoria(this, categoriaModelList);
         recyclerView.setAdapter(ac);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setAdapter(ac);
         addCategoriaBtn.setOnClickListener(v->startActivity(new Intent(CategoriasActivity.this, AgregarCategoriaActivity.class)));
 
         cargaDatos();
