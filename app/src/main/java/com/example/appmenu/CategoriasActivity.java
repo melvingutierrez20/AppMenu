@@ -2,6 +2,7 @@ package com.example.appmenu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CategoriasActivity extends AppCompatActivity {
@@ -65,4 +67,39 @@ public class CategoriasActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+    void eliminarCategoria(String categoriaId) {
+        if (categoriaId == null) {
+            // Imprimir un mensaje indicando que el ID de la categoría es nulo
+            Toast.makeText(this, "Error: El ID de la categoría es nulo", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Utilizar un iterador para evitar ConcurrentModificationException
+        Iterator<CategoriaModel> iterator = categoriaModelList.iterator();
+        while (iterator.hasNext()) {
+            CategoriaModel categoria = iterator.next();
+            if (categoria.getTitle() != null && categoria.getTitle().equals(categoriaId)) {
+                // Utilizar el iterador para eliminar el elemento de la lista
+                iterator.remove();
+                ac.notifyDataSetChanged();
+                break;  // No necesitas seguir iterando después de encontrar y eliminar el elemento
+            }
+        }
+
+        // Eliminar la categoría de Firestore
+        FirebaseFirestore.getInstance().collection("categoria").document(categoriaId).delete()
+                .addOnSuccessListener(aVoid -> {
+                    // Éxito al eliminar en Firestore
+                    Toast.makeText(this, "Categoría eliminada correctamente", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    // Error al eliminar en Firestore
+                    Toast.makeText(this, "Error al eliminar la categoría: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
 }

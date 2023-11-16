@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,12 @@ public class AdaptadorCategoria extends RecyclerView.Adapter<AdaptadorCategoria.
                 .placeholder(R.drawable.img_9)
                 .error(R.drawable.img_9)
                 .into(holder.iv_Categoria);
-        //
+
+
+        holder.btnBorrar.setOnClickListener(v -> {
+            // Llamar al método para manejar la eliminación de la categoría desde la actividad
+            ((CategoriasActivity) context).eliminarCategoria(categoriaM.getTitle());
+        });
     }
 
     @Override
@@ -61,7 +67,7 @@ public class AdaptadorCategoria extends RecyclerView.Adapter<AdaptadorCategoria.
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView iv_Categoria;
-        ImageView btnBorrar;
+        ImageButton btnBorrar;
         TextView tvNom_Categoria;
 
         public ViewHolder(@NonNull View itemView) {
