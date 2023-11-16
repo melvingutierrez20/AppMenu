@@ -70,7 +70,7 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
         storageRef = storage.getReference();
 
         etNomCategoria = findViewById(R.id.etNomCategoria);
-    saveButton = findViewById(R.id.save);
+        saveButton = findViewById(R.id.save);
         categoryImage = findViewById(R.id.category_image);
         selectImgCat = findViewById(R.id.select_image_btn);
 
@@ -121,7 +121,7 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
     }
 
     void addToFirestore() {
-        String name = etNomCategoria.getText().toString();
+        String title = etNomCategoria.getText().toString();
         if (imageUri != null) {
             StorageReference imgRef = storageRef.child("images/*" + System.currentTimeMillis() + ".jpg");
             imgRef.putFile(imageUri)
@@ -132,7 +132,7 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String imageUrl = uri.toString();
-                                    saveCategoryData(name, imageUrl);
+                                    saveCategoryData(title, imageUrl);
                                 }
                             });
                         }
@@ -141,18 +141,21 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(AgregarCategoriaActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
+
                         }
                     });
+
         } else {
             // No hay imagen, solo guardar los datos de texto
-            saveCategoryData(name, null);
+            saveCategoryData(title, null);
         }
+
 
     }
 
-    void saveCategoryData(String name, String imageUrl) {
+    void saveCategoryData(String title, String imageUrl) {
         Map<String, Object> data = new HashMap<>();
-        data.put("name", name);
+        data.put("title", title);
         if (imageUrl != null) {
             data.put("imageUrl", imageUrl);
         }

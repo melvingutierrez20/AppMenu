@@ -2,6 +2,7 @@ package com.example.appmenu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmenu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -50,17 +52,18 @@ public class CategoriasActivity extends AppCompatActivity {
         cargaDatos();
     }
 
-    void cargaDatos(){
+    void cargaDatos() {
         FirebaseFirestore.getInstance().collection("categoria")
-                .addSnapshotListener((value, error)->{
-                    if(error != null){
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
                         return;
                     }
 
-                    if(value != null){
+                    if (value != null) {
                         categoriaModelList.clear();
-                        for(QueryDocumentSnapshot document : value){
+                        for (QueryDocumentSnapshot document : value) {
                             CategoriaModel categoriaModel = document.toObject(CategoriaModel.class);
+                            categoriaModel.setId(document.getId()); // Establecer el ID de la categoría
                             categoriaModelList.add(categoriaModel);
                         }
                         ac.notifyDataSetChanged();
@@ -70,18 +73,13 @@ public class CategoriasActivity extends AppCompatActivity {
 
 
 
-    void eliminarCategoria(String categoriaId) {
-        if (categoriaId == null) {
-            // Imprimir un mensaje indicando que el ID de la categoría es nulo
-            Toast.makeText(this, "Error: El ID de la categoría es nulo", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
+    void eliminarCategoria(String categoriaId) {
         // Utilizar un iterador para evitar ConcurrentModificationException
         Iterator<CategoriaModel> iterator = categoriaModelList.iterator();
         while (iterator.hasNext()) {
             CategoriaModel categoria = iterator.next();
-            if (categoria.getTitle() != null && categoria.getTitle().equals(categoriaId)) {
+            if (categoria.getId() != null && categoria.getId().equals(categoriaId)) {
                 // Utilizar el iterador para eliminar el elemento de la lista
                 iterator.remove();
                 ac.notifyDataSetChanged();
@@ -100,6 +98,7 @@ public class CategoriasActivity extends AppCompatActivity {
                     Toast.makeText(this, "Error al eliminar la categoría: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
 
 
 }

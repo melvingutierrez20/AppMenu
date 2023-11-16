@@ -56,7 +56,7 @@ public class AdaptadorCategoria extends RecyclerView.Adapter<AdaptadorCategoria.
 
         holder.btnBorrar.setOnClickListener(v -> {
             // Llamar al método para manejar la eliminación de la categoría desde la actividad
-            ((CategoriasActivity) context).eliminarCategoria(categoriaM.getTitle());
+            ((CategoriasActivity) context).eliminarCategoria(categoriaM.getId());
         });
     }
 

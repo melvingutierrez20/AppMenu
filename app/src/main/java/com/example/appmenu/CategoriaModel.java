@@ -6,24 +6,13 @@ public class CategoriaModel {
     private String title;
     private String imageUrl;
 
+
     public CategoriaModel() {
-        // Constructor vacío requerido por Firebase
     }
 
-    public CategoriaModel(String nombre, String imageUrl) {
-        this.title = nombre;
-        this.imageUrl = imageUrl;
-    }
-
-    public void setId(String id) {
+    public CategoriaModel(String id, String title, String imageUrl) {
         this.id = id;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -31,12 +20,24 @@ public class CategoriaModel {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
 
