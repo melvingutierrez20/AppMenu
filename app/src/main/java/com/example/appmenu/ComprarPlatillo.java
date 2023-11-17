@@ -9,6 +9,6 @@ public class ComprarPlatillo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comprar_platillo);
+        setContentView(R.layout.activity_comprar_producto);
     }
 }

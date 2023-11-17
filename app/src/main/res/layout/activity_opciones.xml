@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E18F8F"
-    android:orientation="vertical"
+    android:columnCount="2"
+    android:rowCount="4"
     android:gravity="center">
 
+    <!-- TextView de Bienvenida -->
+    <TextView
+        android:id="@+id/tvBienvenido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BIENVENIDO"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
 
-
+    <!-- Primera Imagen y Texto -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginStart="35dp"
+        >
 
         <ImageView
             android:id="@+id/imgCategoria"
-            android:layout_width="220dp"
-            android:layout_height="225dp"
-            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/img_4" />
@@ -32,44 +48,43 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <!-- Segunda Imagen y Texto -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        android:layout_margin="10dp"
-        >
+        android:orientation="vertical"
+        android:layout_marginStart="35dp">
 
         <ImageView
             android:id="@+id/imgOrden"
-            android:layout_width="210dp"
-            android:layout_height="182dp"
-            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_5" />
+            android:src="@drawable/img_13" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ORDENES"
+            android:text="ADMINISTRADOR "
             android:textSize="18sp"
             android:gravity="center" />
     </LinearLayout>
 
+    <!-- Tercera Imagen y Texto -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        android:layout_margin="10dp"
-        >
+        android:orientation="vertical"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="35dp">
 
         <ImageView
             android:id="@+id/imgHistorial"
-            android:layout_width="210dp"
-            android:layout_height="182dp"
-            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/img_7" />
@@ -82,4 +97,42 @@
             android:gravity="center" />
     </LinearLayout>
 
-</LinearLayout>
+    <!-- Cuarta Imagen y Texto -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="35dp">
+
+        <ImageView
+            android:id="@+id/imgProductos"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PRODUCTOS"
+            android:textSize="18sp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- ImageView y TextView de Salir -->
+    <ImageView
+        android:id="@+id/btnSalir"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/baseline_logout_24"
+        android:layout_gravity="center"
+        android:contentDescription="Salir"
+        android:layout_columnSpan="2"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:layout_marginTop="16dp"/>
+
+</GridLayout>
