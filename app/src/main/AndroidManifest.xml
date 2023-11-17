@@ -28,13 +28,7 @@
             android:name=".ComprarPlatillo"
             android:exported="false" />
         <activity
-            android:name=".PlatilloItem"
-            android:exported="false" />
-        <activity
             android:name=".Account"
-            android:exported="false" />
-        <activity
-            android:name=".ItemCategoria"
             android:exported="false" />
         <activity
             android:name=".Cuentas"
