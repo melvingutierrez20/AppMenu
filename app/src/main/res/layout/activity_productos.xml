@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/fondomenu"
+    android:background="@drawable/img_17"
     tools:context=".PlatillosCategoria">
 
     <Spinner

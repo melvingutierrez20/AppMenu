@@ -6,7 +6,8 @@
     android:background="#E18F8F"
     android:columnCount="2"
     android:rowCount="4"
-    android:gravity="center">
+    android:gravity="center"
+    >
 
     <!-- TextView de Bienvenida -->
     <TextView
