@@ -39,5 +39,10 @@ public class CategoriaModel {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
 

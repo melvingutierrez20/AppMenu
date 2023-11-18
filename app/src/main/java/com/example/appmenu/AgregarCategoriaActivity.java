@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -165,7 +166,9 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(AgregarCategoriaActivity.this, "Se guardo con exito!!", Toast.LENGTH_SHORT).show();
+                        Log.d("CATEGORIA", "ID de la categoría: " + documentReference.getId());
                         finish();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
