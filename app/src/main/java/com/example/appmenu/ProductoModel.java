@@ -9,17 +9,20 @@ public class ProductoModel {
     private double precio;
     private String imageUrl;
 
+    private String nombreCategoria;
+
     // Constructor vacío requerido para Firestore
-    public ProductoModel(String idProducto, String nombre, String descripcion, double precio, Object o, String categoriaId) {
+    public ProductoModel(String idProducto, String nombre, String descripcion, double precio, Object o, String categoriaId, String nombreCategoria) {
     }
 
-    public ProductoModel(String idProducto, String nombreProducto, String descripcion, String categoriaId, double precio, String imageUrl) {
+    public ProductoModel(String idProducto, String nombreProducto, String descripcion, String categoriaId, double precio, String imageUrl, String nombreCategoria) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
         this.categoriaId = categoriaId;
         this.precio = precio;
         this.imageUrl = imageUrl;
+        this.nombreCategoria = nombreCategoria;
     }
 
     public String getIdProducto() {
@@ -68,5 +71,13 @@ public class ProductoModel {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
     }
 }

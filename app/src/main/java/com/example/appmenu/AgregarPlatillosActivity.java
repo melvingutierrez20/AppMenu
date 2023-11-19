@@ -209,19 +209,20 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
                         imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
                             String imageUrl = uri.toString();
                             // Modifica la llamada a saveProductData para pasar el ID de la categoría
-                            saveProductData(nombre, descripcion, precio, ((CategoriaModel) categoriaSpinner.getSelectedItem()).getId(), imageUrl);
+                            saveProductData(nombre, descripcion, precio, ((CategoriaModel) categoriaSpinner.getSelectedItem()).getId(), imageUrl, ((CategoriaModel) categoriaSpinner.getSelectedItem()).getTitle());
                         });
                     })
                     .addOnFailureListener(e -> showMessage("Error al subir la imagen"));
         } else {
             // Si no hay imagen, llama a saveProductData sin la URL de la imagen
-            saveProductData(nombre, descripcion, precio, ((CategoriaModel) categoriaSpinner.getSelectedItem()).getId(), null);
+            saveProductData(nombre, descripcion, precio, ((CategoriaModel) categoriaSpinner.getSelectedItem()).getId(), null, ((CategoriaModel) categoriaSpinner.getSelectedItem()).getTitle());
         }
 
     }
 
-    private void saveProductData(String nombre, String descripcion, double precio, String categoriaId, String imageUrl) {
-        ProductoModel nuevoProducto = new ProductoModel(null, nombre, descripcion, categoriaId, precio, imageUrl);
+    private void saveProductData(String nombre, String descripcion, double precio, String categoriaId, String imageUrl, String nombreCategoria) {
+        ProductoModel nuevoProducto = new ProductoModel(null, nombre, descripcion, categoriaId, precio, imageUrl,nombreCategoria);
+        // Obtener el nombre de la categoría seleccionada
 
         productsRef.add(nuevoProducto)
                 .addOnSuccessListener(documentReference -> {
