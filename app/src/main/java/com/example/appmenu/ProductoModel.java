@@ -8,7 +8,7 @@ public class ProductoModel {
     private String categoriaId;  // Cambiado a identificador de categoría en lugar de nombre
     private double precio;
     private String imageUrl;
-
+   // comentario de prueba
     private String nombreCategoria;
 
     // Constructor vacío requerido para Firestore
