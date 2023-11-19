@@ -8,11 +8,11 @@ public class ProductoModel {
     private String categoriaId;  // Cambiado a identificador de categoría en lugar de nombre
     private double precio;
     private String imageUrl;
-   // comentario de prueba
+
     private String nombreCategoria;
 
     // Constructor vacío requerido para Firestore
-    public ProductoModel(String idProducto, String nombre, String descripcion, double precio, Object o, String categoriaId, String nombreCategoria) {
+    public ProductoModel() {
     }
 
     public ProductoModel(String idProducto, String nombreProducto, String descripcion, String categoriaId, double precio, String imageUrl, String nombreCategoria) {
