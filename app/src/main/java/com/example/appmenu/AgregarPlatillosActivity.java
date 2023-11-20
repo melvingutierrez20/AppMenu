@@ -221,16 +221,20 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
     }
 
     private void saveProductData(String nombre, String descripcion, double precio, String categoriaId, String imageUrl, String nombreCategoria) {
-        ProductoModel nuevoProducto = new ProductoModel(null, nombre, descripcion, categoriaId, precio, imageUrl,nombreCategoria);
-        // Obtener el nombre de la categoría seleccionada
+        ProductoModel nuevoProducto = new ProductoModel(null, nombre, descripcion, categoriaId, precio, imageUrl, nombreCategoria);
 
         productsRef.add(nuevoProducto)
                 .addOnSuccessListener(documentReference -> {
                     showMessage("Producto agregado exitosamente");
-                    finish();
+
+                    // Limpiar la pila de actividades y regresar a la actividad principal
+                    Intent intent = new Intent(AgregarPlatillosActivity.this, PlatillosActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
+                    // No es necesario llamar a finish() aquí
                 })
                 .addOnFailureListener(e -> showMessage("Error al agregar producto: " + e.getMessage()));
     }
-
 
 }

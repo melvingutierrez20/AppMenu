@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,15 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
 
     private List<ProductoModel> platilloList;
     private Context context;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public AdaptadorPlatillo(List<ProductoModel> platilloList, Context context) {
         this.platilloList = platilloList;
@@ -28,7 +38,7 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
     @Override
     public PlatilloViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_platilloitem, parent, false);
-        return new PlatilloViewHolder(view);
+        return new PlatilloViewHolder(view, mListener);
     }
 
     @Override
@@ -50,18 +60,36 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
     public int getItemCount() {
         return platilloList.size();
     }
+    public void setPlatilloList(List<ProductoModel> platilloList) {
+        this.platilloList = platilloList;
+    }
+
 
     public static class PlatilloViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivImagen;
+        ImageView ivImagen, ivBorrar;
         TextView tvNombrePlatillo, tvDescripcionPlatillo, tvCategoriaPlatillo, tvPrecio;
 
-        public PlatilloViewHolder(@NonNull View itemView) {
+        public PlatilloViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             ivImagen = itemView.findViewById(R.id.ivImagen);
             tvNombrePlatillo = itemView.findViewById(R.id.tvNombrePlatillo);
             tvDescripcionPlatillo = itemView.findViewById(R.id.tvDescripcionPlatillo);
             tvCategoriaPlatillo = itemView.findViewById(R.id.tvCategoriaPlatillo);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
+            ivBorrar = itemView.findViewById(R.id.ivBorrar);
+
+            // Agregar el OnClickListener para el botón de borrar
+            ivBorrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }
