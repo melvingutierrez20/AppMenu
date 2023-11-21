@@ -233,13 +233,49 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
         String descripcion = descripProducto.getText().toString().trim();
         String precioString = precioEditText.getText().toString().trim();
 
+        // Validación de campos vacíos
         if (nombre.isEmpty() || descripcion.isEmpty() || precioString.isEmpty()) {
             showMessage("Por favor, completa todos los campos");
             return;
         }
 
+        // Validación de nombre y descripción sin números ni caracteres especiales
+        if (!nombre.matches("^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\\s]+$")) {
+            showMessage("El nombre no puede contener números ni caracteres especiales");
+            return;
+        }
+
+        if (!descripcion.matches("^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\\s]+$")) {
+            showMessage("La descripción no puede contener números ni caracteres especiales");
+            return;
+        }
+
+        // Validación de precio solo con números, puntos y comas
+        if (!precioString.matches("^\\d+(\\.\\d+)?$")) {
+            showMessage("El precio solo puede contener números, puntos y comas");
+            return;
+        }
+        // Validación de límites de caracteres
+        if (nombre.length() > 20) {
+            showMessage("El nombre del platillo no puede tener más de 20 caracteres");
+            return;
+        }
+
+        if (descripcion.length() > 30) {
+            showMessage("La descripción no puede tener más de 30 caracteres");
+            return;
+        }
+
+        if (precioString.contains(".") && precioString.substring(precioString.indexOf(".") + 1).length() > 2) {
+            showMessage("El precio no puede tener más de 2 decimales");
+            return;
+        }
+
+
         double precio = Double.parseDouble(precioString);
         CategoriaModel selectedCategory = (CategoriaModel) categoriaSpinner.getSelectedItem();
+
+        // Validación de selección de categoría
         if (selectedCategory == null) {
             showMessage("Selecciona una categoría");
             return;

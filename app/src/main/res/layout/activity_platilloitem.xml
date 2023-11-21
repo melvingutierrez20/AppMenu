@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/tvNombrePlatillo"
-                android:layout_width="314dp"
+                android:layout_width="320dp"
                 android:layout_height="32dp"
                 android:gravity="center"
                 android:hint="Nombre Platillo"
@@ -49,13 +49,14 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/ivImagen"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view"
                 android:layout_marginStart="55dp"
-                android:layout_width="315dp"
+                android:layout_width="250dp"
                 android:layout_height="1dp"
                 android:background="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +67,9 @@
                 android:id="@+id/tvDescripcionPlatillo"
                 android:layout_width="320dp"
                 android:layout_height="28dp"
-                android:gravity="fill_horizontal"
                 android:hint="Descripción del platillo"
                 android:paddingVertical="5dp"
+                android:textAlignment="center"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -81,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:hint="CATEGORIA PLATILLO"
                 android:paddingVertical="5dp"
+                android:textAlignment="textStart"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +102,8 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:paddingVertical="4dp"
-                android:gravity="center"
                 android:hint="$0.0"
+                android:textAlignment="textStart"
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toStartOf="@+id/ivEditar"

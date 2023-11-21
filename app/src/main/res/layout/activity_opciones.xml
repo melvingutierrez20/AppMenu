@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E18F8F"
+    android:background="@color/baseRosa"
     android:columnCount="2"
-    android:rowCount="4"
-    android:gravity="center"
-    >
+    android:rowCount="5"
+    android:gravity="center">
 
     <!-- TextView de Bienvenida -->
     <TextView
@@ -24,103 +23,122 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Primera Imagen y Texto -->
+    <!-- Contenedor para las imágenes 1 y 2 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginStart="35dp"
-        >
+        android:layout_marginTop="50dp"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_columnSpan="2">
 
-        <ImageView
-            android:id="@+id/imgCategoria"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_4" />
-
-        <TextView
+        <!-- Primera Imagen y Texto -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="CATEGORIAS"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-    <!-- Segunda Imagen y Texto -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginStart="35dp">
+            <ImageView
+                android:id="@+id/imgCategoria"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_4" />
 
-        <ImageView
-            android:id="@+id/imgOrden"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_13" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="CATEGORIAS"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-        <TextView
+        <!-- Segunda Imagen y Texto -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADMINISTRADOR "
-            android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginStart="35dp">
+
+            <ImageView
+                android:id="@+id/imgOrden"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_13" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADMINISTRADOR"
+                android:textSize="18sp"
+                android:gravity="center" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Tercera Imagen y Texto -->
+    <!-- Contenedor para las imágenes 3 y 4 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="35dp">
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_columnSpan="2">
 
-        <ImageView
-            android:id="@+id/imgHistorial"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_7" />
-
-        <TextView
+        <!-- Tercera Imagen y Texto -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HISTORIAL"
-            android:textSize="18sp"
-            android:gravity="center" />
-    </LinearLayout>
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <!-- Cuarta Imagen y Texto -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="35dp">
+            <ImageView
+                android:id="@+id/imgHistorial"
+                android:layout_width="138dp"
+                android:layout_height="139dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_7" />
 
-        <ImageView
-            android:id="@+id/imgProductos"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_14" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HISTORIAL"
+                android:textSize="18sp"
+                android:gravity="center" />
+        </LinearLayout>
 
-        <TextView
+        <!-- Cuarta Imagen y Texto -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PRODUCTOS"
-            android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginStart="35dp">
+
+            <ImageView
+                android:id="@+id/imgProductos"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRODUCTOS"
+                android:textSize="18sp"
+                android:gravity="center" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- ImageView y TextView de Salir -->
@@ -131,9 +149,8 @@
         android:src="@drawable/baseline_logout_24"
         android:layout_gravity="center"
         android:contentDescription="Salir"
-        android:layout_columnSpan="2"
-        android:layout_row="3"
+        android:layout_row="4"
         android:layout_column="0"
+        android:layout_columnSpan="2"
         android:layout_marginTop="16dp"/>
-
 </GridLayout>

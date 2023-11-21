@@ -1,77 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@drawable/img_17">
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="ADMINISTRAR PLATILLOS"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:background="#A65B64"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- SearchView -->
+    <android.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+        app:cardCornerRadius="8dp"
+        android:padding="16dp"
+        android:layout_marginTop="30dp"
+        android:textAlignment="textStart"
+        />
+
+    <!-- RecyclerView -->
+
+    <!-- FloatingActionButton -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPlatillos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="450dp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/AddCategoriaBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/tvTitulo"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:gravity="center"
-            android:layout_marginTop="50dp"
-            android:text="ADMINISTRAR PLATILLOS"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:background="#A65B64"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/AddCategoriaBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_add_circle_outline_24"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="40dp"
+        android:backgroundTint="#E18F8F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="Agregar elemento" />
 
-        <android.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:cardCornerRadius="8dp"
-            android:padding="16dp"
-            android:layout_marginTop="30dp"
-            android:textAlignment="textStart"
-            />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPlatillos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/AddCategoriaBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitulo"
-            app:layout_constraintVertical_bias="0.325" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/AddCategoriaBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_circle_outline_24"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
-            app:fabCustomSize="40dp"
-            android:backgroundTint="#E18F8F"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="Agregar elemento" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
