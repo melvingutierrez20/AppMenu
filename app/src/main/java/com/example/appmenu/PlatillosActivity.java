@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ public class PlatillosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_platillos);
+        // Inicializa el contexto para edicion es necesario y asi me abre el otro intent
+        context = this;
 
         rvPlatillos = findViewById(R.id.rvPlatillos);
         platilloList = new ArrayList<>();
@@ -61,8 +64,15 @@ public class PlatillosActivity extends AppCompatActivity {
             }
             @Override
             public void onEditClick(int position) {
-                ProductoModel platillo = platilloList.get(position);
-                abrirActividadEdicion(platillo);
+                try {
+                    ProductoModel platillo = platilloList.get(position);
+                    abrirActividadEdicion(platillo);
+                } catch (Exception e) {
+                    // Manejar la excepción
+                    e.printStackTrace();
+                    Log.e("PlatillosActivity", "Excepción al abrir la actividad de edición: " + e.getMessage());
+                    Toast.makeText(PlatillosActivity.this, "Error al abrir la actividad de edición", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -95,7 +105,8 @@ public class PlatillosActivity extends AppCompatActivity {
     }
 
     private void abrirActividadEdicion(ProductoModel platillo) {
-        Intent editarIntent = new Intent(PlatillosActivity.this, AgregarPlatillosActivity.class);
+        Intent editarIntent = new Intent(context, AgregarPlatillosActivity.class);
+        editarIntent.putExtra("EDIT_MODE", true);
         editarIntent.putExtra("id", platillo.getIdProducto());
         editarIntent.putExtra("nombrePlatillo", platillo.getNombreProducto());
         editarIntent.putExtra("descripcionPlatillo", platillo.getDescripcion());

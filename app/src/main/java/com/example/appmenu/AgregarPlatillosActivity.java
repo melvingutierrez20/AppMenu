@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,12 +62,15 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
     boolean isEditMode = true;
     private TextView tv_Titulo;
 
+    private Context context;
+
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_platillos);
-
+        // Inicializa el contexto
+        context = this;
 
         // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -130,8 +134,13 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
     }
 
     private void setupEditModePlatillo() {
-        tv_Titulo.setText("Editar platillo");
+        isEditMode = getIntent().getBooleanExtra("EDIT_MODE", false);
+        String existingId = getIntent().getStringExtra("id");
+       // tv_Titulo.setText("Editar platillo");
 
+        if (isEditMode && existingId != null && !existingId.isEmpty()) {
+            tv_Titulo.setText("Editar platillo");
+            loadCategories();
         String existingNombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
         String existingDescPlatillo = getIntent().getStringExtra("descripcionPlatillo");
         String existingPrecioPlatillo = getIntent().getStringExtra("precioPlatillo");
@@ -141,7 +150,22 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
         // Llenar los campos de la interfaz de usuario con los datos existentes
         nombreProducto.setText(existingNombrePlatillo);
         descripProducto.setText(existingDescPlatillo);
-        precioEditText.setText(existingPrecioPlatillo);
+       // precioEditText.setText(existingPrecioPlatillo);
+            // Verificar si existingPrecioPlatillo es nulo antes de intentar convertir a double
+            Log.d("PlatillosActivity", "ExistingPrecioPlatillo: " + existingPrecioPlatillo);
+            double precio = 0.0;  // Valor predeterminado
+
+            if (existingPrecioPlatillo != null && !existingPrecioPlatillo.isEmpty()) {
+                try {
+                    precio = Double.parseDouble(existingPrecioPlatillo);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    Log.e("PlatillosActivity", "Error al convertir el precio a número: " + e.getMessage());
+                    // Manejar la excepción si el formato del precio no es válido
+                }
+            }
+
+            precioEditText.setText(String.valueOf(precio));
 
         // Configurar el Spinner con las categorías de la base de datos
         loadCategories();
@@ -152,6 +176,7 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(existingImageUrl)
                 .into(selecionImagen);
+        }
     }
 
     private int encontrarPosicionDeCategoria(String categoriaId) {
@@ -304,6 +329,28 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
     private void saveProductData(String nombre, String descripcion, double precio, String categoriaId, String imageUrl, String nombreCategoria) {
         ProductoModel nuevoProducto = new ProductoModel(null, nombre, descripcion, categoriaId, precio, imageUrl, nombreCategoria);
 
+        // Verifica si estamos en modo de edición
+        if (isEditMode) {
+            // Si es modo de edición, actualiza la categoría existente
+            String id = getIntent().getStringExtra("id");
+            Map<String, Object> data = new HashMap<>();
+            data.put("nombrePlatillo", nombre);
+            data.put("descripcionPlatillo", descripcion);
+            data.put("categoriaPlatillo", categoriaId);
+            data.put("precioPlatillo", precio);
+            data.put("imageUrlPlatillo", imageUrl);
+
+            productsRef
+                    .document(id)
+                    .update(data)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(AgregarPlatillosActivity.this, "Platillo actualizado correctamente!", Toast.LENGTH_LONG).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(AgregarPlatillosActivity.this, "Platillo no se actualizo correctamente!", Toast.LENGTH_LONG).show();
+                    });
+        }else {
         productsRef.add(nuevoProducto)
                 .addOnSuccessListener(documentReference -> {
                     showMessage("Producto agregado exitosamente");
@@ -316,6 +363,7 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
                     // No es necesario llamar a finish() aquí
                 })
                 .addOnFailureListener(e -> showMessage("Error al agregar producto: " + e.getMessage()));
+    }
     }
 
 }
