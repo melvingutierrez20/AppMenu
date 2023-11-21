@@ -20,9 +20,13 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
     private List<ProductoModel> platilloList;
     private Context context;
     private OnItemClickListener mListener;
+    private View.OnClickListener  editClickListener;
+
 
     public interface OnItemClickListener {
         void onDeleteClick(int position);
+
+        void onEditClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -32,6 +36,7 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
     public AdaptadorPlatillo(List<ProductoModel> platilloList, Context context) {
         this.platilloList = platilloList;
         this.context = context;
+        this.editClickListener = editClickListener;
     }
 
     @NonNull
@@ -54,6 +59,7 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
         Glide.with(context)
                 .load(platillo.getImageUrl())
                 .into(holder.ivImagen);
+
     }
 
     @Override
@@ -66,7 +72,7 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
 
 
     public static class PlatilloViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivImagen, ivBorrar;
+        ImageView ivImagen, ivBorrar, iv_Editar;
         TextView tvNombrePlatillo, tvDescripcionPlatillo, tvCategoriaPlatillo, tvPrecio;
 
         public PlatilloViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
@@ -77,6 +83,8 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
             tvCategoriaPlatillo = itemView.findViewById(R.id.tvCategoriaPlatillo);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             ivBorrar = itemView.findViewById(R.id.ivBorrar);
+            iv_Editar = itemView.findViewById(R.id.ivEditar);
+
 
             // Agregar el OnClickListener para el botón de borrar
             ivBorrar.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +98,19 @@ public class AdaptadorPlatillo extends RecyclerView.Adapter<AdaptadorPlatillo.Pl
                     }
                 }
             });
+
+            iv_Editar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onEditClick(position);
+                        }
+                    }
+                }
+            });
+
         }
     }
 }

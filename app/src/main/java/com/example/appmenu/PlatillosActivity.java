@@ -1,21 +1,19 @@
 package com.example.appmenu;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,6 +23,7 @@ public class PlatillosActivity extends AppCompatActivity {
     private RecyclerView rvPlatillos;
     private AdaptadorPlatillo AdaptadorPlatillo;
     private List<ProductoModel> platilloList;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +47,22 @@ public class PlatillosActivity extends AppCompatActivity {
             }
         });
 
+        // Configurar el Listener para editar el platillos
+
         // Configurar el Listener para la eliminación de platillos
         AdaptadorPlatillo.setOnItemClickListener(new AdaptadorPlatillo.OnItemClickListener() {
-            @Override
+
             public void onDeleteClick(int position) {
                 // Obtener idProducto
                 String idProducto = obtenerIdProducto(position);
 
                 // Llamar el metodo de eliminar
                 eliminarPlatillo(idProducto);
+            }
+            @Override
+            public void onEditClick(int position) {
+                ProductoModel platillo = platilloList.get(position);
+                abrirActividadEdicion(platillo);
             }
         });
 
@@ -88,6 +94,16 @@ public class PlatillosActivity extends AppCompatActivity {
         });
     }
 
+    private void abrirActividadEdicion(ProductoModel platillo) {
+        Intent editarIntent = new Intent(PlatillosActivity.this, AgregarPlatillosActivity.class);
+        editarIntent.putExtra("id", platillo.getIdProducto());
+        editarIntent.putExtra("nombrePlatillo", platillo.getNombreProducto());
+        editarIntent.putExtra("descripcionPlatillo", platillo.getDescripcion());
+        editarIntent.putExtra("categoriaPlatillo", platillo.getCategoriaId());
+        editarIntent.putExtra("precioPlatillo", platillo.getPrecio());
+        editarIntent.putExtra("imageUrlPlatillo", platillo.getImageUrl());
+        startActivity(editarIntent);
+    }
 
 
 

@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,8 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,6 +58,8 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
     private Uri imageUrl;
 
     private List<CategoriaModel> categoriaList = new ArrayList<>();
+    boolean isEditMode = true;
+    private TextView tv_Titulo;
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     @Override
@@ -78,6 +83,7 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
         productoImagen = findViewById(R.id.save);
         selecionImagen = findViewById(R.id.category_image);
         chosseImageButton = findViewById(R.id.select_image_btn);
+        tv_Titulo = findViewById(R.id.tvTitulo);
 
         // Configurar el Spinner con las categorías de la base de datos
         loadCategories();
@@ -111,9 +117,51 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
                 });
 
 
+        //modo editar
+        // Modo edit
+        Intent intent = getIntent();
+        if (intent.hasExtra("EDIT_MODE")) {
+            isEditMode = intent.getBooleanExtra("EDIT_MODE", false);
+            if (isEditMode) {
+                setupEditModePlatillo();
+            }
+        }
 
     }
 
+    private void setupEditModePlatillo() {
+        tv_Titulo.setText("Editar platillo");
+
+        String existingNombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
+        String existingDescPlatillo = getIntent().getStringExtra("descripcionPlatillo");
+        String existingPrecioPlatillo = getIntent().getStringExtra("precioPlatillo");
+        String existingCategoriaPlatillo = getIntent().getStringExtra("categoriaPlatillo");
+        String existingImageUrl = getIntent().getStringExtra("imageUrlPlatillo");
+
+        // Llenar los campos de la interfaz de usuario con los datos existentes
+        nombreProducto.setText(existingNombrePlatillo);
+        descripProducto.setText(existingDescPlatillo);
+        precioEditText.setText(existingPrecioPlatillo);
+
+        // Configurar el Spinner con las categorías de la base de datos
+        loadCategories();
+        int posicionDeLaCategoria = encontrarPosicionDeCategoria(existingCategoriaPlatillo);
+        categoriaSpinner.setSelection(posicionDeLaCategoria);
+
+        // Cargar la imagen existente utilizando Glide
+        Glide.with(this)
+                .load(existingImageUrl)
+                .into(selecionImagen);
+    }
+
+    private int encontrarPosicionDeCategoria(String categoriaId) {
+        for (int i = 0; i < categoriaList.size(); i++) {
+            if (categoriaList.get(i).getId().equals(categoriaId)) {
+                return i; // Devolver la posición cuando encuentres la categoría
+            }
+        }
+        return 0; // Devolver 0 si no se encuentra ninguna coincidencia (puedes ajustar esto según tus necesidades)
+    }
 
 
     private void showMessage(String message) {
@@ -170,9 +218,6 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
 
 
     }
-
-
-
     //metodo para abrir el buscador de imagenes
     private void openImageChooser() {
         Intent intent = new Intent();
