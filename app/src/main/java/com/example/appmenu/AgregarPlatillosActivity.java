@@ -329,28 +329,34 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
     private void saveProductData(String nombre, String descripcion, double precio, String categoriaId, String imageUrl, String nombreCategoria) {
         ProductoModel nuevoProducto = new ProductoModel(null, nombre, descripcion, categoriaId, precio, imageUrl, nombreCategoria);
 
-        // Verifica si estamos en modo de edición
-        if (isEditMode) {
-            // Si es modo de edición, actualiza la categoría existente
-            String id = getIntent().getStringExtra("id");
-            Map<String, Object> data = new HashMap<>();
-            data.put("nombrePlatillo", nombre);
-            data.put("descripcionPlatillo", descripcion);
-            data.put("categoriaPlatillo", categoriaId);
-            data.put("precioPlatillo", precio);
-            data.put("imageUrlPlatillo", imageUrl);
 
-            productsRef
-                    .document(id)
-                    .update(data)
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(AgregarPlatillosActivity.this, "Platillo actualizado correctamente!", Toast.LENGTH_LONG).show();
-                        finish();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(AgregarPlatillosActivity.this, "Platillo no se actualizo correctamente!", Toast.LENGTH_LONG).show();
-                    });
-        }else {
+        /*if (isEditMode) {
+            String id = getIntent().getStringExtra("id");
+
+            if (id != null) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("nombrePlatillo", nombre);
+                data.put("descripcionPlatillo", descripcion);
+                data.put("categoriaPlatillo", categoriaId);
+                data.put("precioPlatillo", precio);
+                data.put("imageUrlPlatillo", imageUrl);
+
+                productsRef
+                        .document(id)
+                        .update(data)
+                        .addOnSuccessListener(unused -> {
+                            Toast.makeText(AgregarPlatillosActivity.this, "Platillo actualizado correctamente!", Toast.LENGTH_LONG).show();
+                            finish();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(AgregarPlatillosActivity.this, "Error al actualizar el platillo: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            e.printStackTrace(); // Agrega esta línea para imprimir detalles del error en la consola
+                        });
+            } else {
+                // Manejo de caso donde "id" es nulo
+                Toast.makeText(AgregarPlatillosActivity.this, "Error: No se proporcionó el ID del platillo a editar.", Toast.LENGTH_LONG).show();
+            }
+        }else {*/
         productsRef.add(nuevoProducto)
                 .addOnSuccessListener(documentReference -> {
                     showMessage("Producto agregado exitosamente");
@@ -363,7 +369,7 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
                     // No es necesario llamar a finish() aquí
                 })
                 .addOnFailureListener(e -> showMessage("Error al agregar producto: " + e.getMessage()));
-    }
+    //}*/
     }
 
 }
