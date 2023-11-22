@@ -11,6 +11,8 @@ public class ProductoModel {
 
     private String nombreCategoria;
 
+    private int cantidad;
+
     // Constructor vacío requerido para Firestore
     public ProductoModel() {
     }
@@ -79,5 +81,13 @@ public class ProductoModel {
 
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 }

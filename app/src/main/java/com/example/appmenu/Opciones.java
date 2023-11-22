@@ -23,5 +23,6 @@ public class Opciones extends AppCompatActivity {
         img_categoria.setOnClickListener(v->startActivity(new Intent(Opciones.this, CategoriasActivity.class)));
         img_ordenes.setOnClickListener(v->startActivity(new Intent(Opciones.this, PlatillosActivity.class)));
         img_historial.setOnClickListener(v->startActivity(new Intent(Opciones.this, Historial.class)));
+        img_productos.setOnClickListener(v->startActivity(new Intent(Opciones.this, PlatillosCategoria.class)));
     }
 }
