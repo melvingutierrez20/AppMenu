@@ -22,7 +22,7 @@ import java.util.List;
 
 public class PlatillosActivity extends AppCompatActivity {
     private RecyclerView rvPlatillos;
-    private AdaptadorPlatillo AdaptadorPlatillo;
+    AdaptadorPlatillo AdaptadorPlatillo;
     private List<ProductoModel> platilloList;
     private Context context;
 
@@ -50,8 +50,6 @@ public class PlatillosActivity extends AppCompatActivity {
             }
         });
 
-        // Configurar el Listener para editar el platillos
-
         // Configurar el Listener para la eliminación de platillos
         AdaptadorPlatillo.setOnItemClickListener(new AdaptadorPlatillo.OnItemClickListener() {
 
@@ -61,12 +59,14 @@ public class PlatillosActivity extends AppCompatActivity {
 
                 // Llamar el metodo de eliminar
                 eliminarPlatillo(idProducto);
+
             }
             @Override
             public void onEditClick(int position) {
                 try {
                     ProductoModel platillo = platilloList.get(position);
                     abrirActividadEdicion(platillo);
+                    cargarPlatillos();
                 } catch (Exception e) {
                     // Manejar la excepción
                     e.printStackTrace();
@@ -107,16 +107,14 @@ public class PlatillosActivity extends AppCompatActivity {
     private void abrirActividadEdicion(ProductoModel platillo) {
         Intent editarIntent = new Intent(context, AgregarPlatillosActivity.class);
         editarIntent.putExtra("EDIT_MODE", true);
-        editarIntent.putExtra("id", platillo.getIdProducto());
-        editarIntent.putExtra("nombrePlatillo", platillo.getNombreProducto());
-        editarIntent.putExtra("descripcionPlatillo", platillo.getDescripcion());
-        editarIntent.putExtra("categoriaPlatillo", platillo.getCategoriaId());
-        editarIntent.putExtra("precioPlatillo", platillo.getPrecio());
-        editarIntent.putExtra("imageUrlPlatillo", platillo.getImageUrl());
-        startActivity(editarIntent);
+        editarIntent.putExtra("idProducto", platillo.getIdProducto());
+        editarIntent.putExtra("nombreProducto", platillo.getNombreProducto());
+        editarIntent.putExtra("descripcion", platillo.getDescripcion());
+        editarIntent.putExtra("categoriaId", platillo.getCategoriaId());
+        editarIntent.putExtra("precio", platillo.getPrecio());
+        editarIntent.putExtra("imageUrl", platillo.getImageUrl());
+        context.startActivity(editarIntent);
     }
-
-
 
     // Método para eliminar el producto en Firebase Firestore
     void eliminarPlatillo(String idProducto) {
