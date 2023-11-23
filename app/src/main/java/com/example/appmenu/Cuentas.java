@@ -108,6 +108,8 @@ public class Cuentas extends AppCompatActivity {
                         .addOnSuccessListener(documentReference -> {
                                 // El documento se ha agregado con éxito
                                 Log.d("CuentasActivity", "Compra guardada con ID: " + documentReference.getId());
+                                // Mostrar Toast de éxito
+                                mostrarToast("Cuenta agregada exitosamente");
                         })
                         .addOnFailureListener(e -> {
                                 // Error al agregar el documento
