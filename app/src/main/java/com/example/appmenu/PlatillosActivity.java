@@ -96,7 +96,7 @@ public class PlatillosActivity extends AppCompatActivity {
                     platillo.setIdProducto(document.getId()); // Establecer el ID del producto
                     platilloList.add(platillo);
                 }
-                AdaptadorPlatillo.notifyDataSetChanged();
+                AdaptadorPlatillo.notifyDataSetChanged(); 
             } else {
                 // Manejar el error
                 Toast.makeText(PlatillosActivity.this, "Error al cargar los platillos", Toast.LENGTH_SHORT).show();

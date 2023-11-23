@@ -8,10 +8,8 @@ public class ProductoModel {
     private String categoriaId;  // Cambiado a identificador de categoría en lugar de nombre
     private double precio;
     private String imageUrl;
-
     private String nombreCategoria;
-
-    private int cantidad;
+    
 
     // Constructor vacío requerido para Firestore
     public ProductoModel() {
@@ -83,11 +81,4 @@ public class ProductoModel {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 }

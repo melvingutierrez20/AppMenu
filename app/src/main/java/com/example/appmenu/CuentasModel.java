@@ -6,6 +6,16 @@ public class CuentasModel {
      private String productosSeleccionados;
      private double totalPedido;
 
+    public String getNombrePlato() {
+        return nombrePlato;
+    }
+
+    public void setNombrePlato(String nombrePlato) {
+        this.nombrePlato = nombrePlato;
+    }
+
+    private String nombrePlato;
+
     public CuentasModel() {
     }
 
