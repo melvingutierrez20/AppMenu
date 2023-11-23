@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
 
     private RecyclerView rvPlatillos;
     private AdaptadorComprarPlatillo adaptadorComprarPlatillo;
+
+    private List<ProductoModel> productosSeleccionadosList; // Nueva lista para rastrear productos seleccionados
     private List<ProductoModel> platilloList;
     private TextView tvCuentaTotal;
     private double cuentaTotal = 0.0;
@@ -50,9 +53,25 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
         tvCuentaTotal = findViewById(R.id.tvCuentaTotal);
         carro = findViewById(R.id.carro);
 
+        // Inicializar la lista de productos seleccionados
+        productosSeleccionadosList = new ArrayList<>();
+
         // Cargar los platillos
         cargarPlatillos();
-        carro.setOnClickListener(v->startActivity(new Intent(PlatillosCategoria.this, Cuentas.class)));
+        carro.setOnClickListener(v->{
+            // Al hacer clic en el botón "carro", enviar la cuenta total a la actividad Cuentas
+            Intent intent = new Intent(PlatillosCategoria.this, Cuentas.class);
+            intent.putExtra("cuentaTotal", cuentaTotal);
+            intent.putExtra("productosSeleccionados", serializeProductoModels(productosSeleccionadosList));
+            startActivity(intent);
+                });
+
+
+    }
+
+    private String serializeProductoModels(List<ProductoModel> productoModels) {
+        Gson gson = new Gson();
+        return gson.toJson(productoModels);
     }
 
 
@@ -80,14 +99,17 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
     // Implementación del método onItemClick
     @Override
     public void onItemClick(ProductoModel producto) {
-        // Lógica para manejar el clic en un elemento del RecyclerView
-        // Aquí puedes agregar la lógica para sumar el precio del producto a la cuenta total
+
+        // Agregar el producto directamente a la lista
+        productosSeleccionadosList.add(producto);
+
+        // Sumar el precio del producto a la cuenta total
         cuentaTotal += producto.getPrecio();
 
         // Actualizar el TextView con la nueva cuenta total
         tvCuentaTotal.setText(String.format("Cuenta Total: $%.2f", cuentaTotal));
 
-        // Opcional: Mostrar un mensaje de éxito
+        // Mostrar un mensaje de éxito
         Toast.makeText(this, "Producto agregado al carrito", Toast.LENGTH_SHORT).show();
     }
 
