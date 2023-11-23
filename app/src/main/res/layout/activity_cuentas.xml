@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
@@ -12,12 +12,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/baseRosa"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             tools:context=".Cuentas">
 
             <TextView
@@ -28,7 +28,7 @@
                 android:gravity="center"
                 android:text="Cuenta"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -38,42 +38,44 @@
             <TableLayout
                 android:id="@+id/tlCuenta"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="80dp"
                 android:weightSum="1"
-                app:layout_constraintBottom_toTopOf="@+id/llCuentaTotal"
+                app:layout_constraintBottom_toTopOf="@+id/total"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-                <!-- Agrega aquí elementos de la tabla o contenido de la lista -->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/total"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
             </TableLayout>
 
             <LinearLayout
-                android:id="@+id/llCuentaTotal"
+                android:id="@+id/total"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:background="@color/verde"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <ImageButton
-                    android:id="@+id/btnCarrito"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/baseline_shopping_cart_24" />
+
 
                 <TextView
-                    android:id="@+id/tvCuentaTotal"
+                    android:id="@+id/cancelar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/orange"
                     android:gravity="center"
-                    android:hint="Cuenta y Total cuenta"
+                    android:hint="cancelar cuenta"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
