@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BIENVENIDO"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="24sp"
         android:gravity="center"
@@ -54,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="CATEGORIAS"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -77,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ADMINISTRADOR"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:gravity="center" />
         </LinearLayout>
@@ -112,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="HISTORIAL"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:gravity="center" />
         </LinearLayout>
@@ -135,7 +139,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PRODUCTOS"
+                android:text="PLATILLOS Y PRODUCTOS"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:gravity="center" />
         </LinearLayout>
