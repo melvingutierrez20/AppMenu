@@ -7,8 +7,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/img_17"
     tools:context=".PlatillosCategoria">
+
+    <TextView
+        android:id="@+id/textpyp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/Rosaoscuro"
+        android:text="PLATILLOS Y PRODUCTOS"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Spinner
         android:id="@+id/spiCategorias"
@@ -20,10 +33,12 @@
         android:gravity="center"
         android:hint="selecciona la categoria"
         android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textpyp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlatillos"
@@ -54,7 +69,9 @@
             android:layout_height="50dp"
             android:src="@drawable/baseline_shopping_cart_24"
             android:scaleType="centerInside"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:contentDescription="Carrito de compras" />
+
 
         <TextView
             android:id="@+id/tvCuentaTotal"

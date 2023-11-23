@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#E18F8F">
+    android:background="@color/Rosaoscuro">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:text="ADMINISTRAR CATEGORIA"
             android:textSize="14sp"
             android:textColor="@color/black"
-            android:background="@color/baseRosa"
+            android:background="@color/Rosaoscuro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
