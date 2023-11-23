@@ -33,7 +33,7 @@ public class AdaptadorHistorial extends RecyclerView.Adapter<AdaptadorHistorial.
 
         // Configurar las vistas del ViewHolder con los datos de la cuenta
         holder.nombre.setText(cuenta.getNombrePlato());
-        holder.precioTextView.setText(String.valueOf(cuenta.getTotalPedido()));
+        holder.precioTextView.setText(String.valueOf("$" + cuenta.getTotalPedido()));
         holder.codigoTextView.setText(cuenta.getCodigoCuenta());
     }
 
