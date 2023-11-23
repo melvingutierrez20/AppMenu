@@ -90,7 +90,7 @@
                     android:layout_height="50dp"
                     android:background="@color/amarillo"
                     android:gravity="center"
-                    android:hint="cancelar cuenta"
+                    android:hint="Cancelar cuenta"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />

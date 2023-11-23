@@ -32,7 +32,7 @@
         android:textSize="13sp"
         android:gravity="center"
         android:hint="selecciona la categoria"
-        android:background="@color/white"
+        android:background="@color/verdefondo"
         app:layout_constraintTop_toBottomOf="@+id/textpyp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
