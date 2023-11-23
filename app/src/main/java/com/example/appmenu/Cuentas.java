@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
@@ -48,6 +50,9 @@ public class Cuentas extends AppCompatActivity {
 
                         // También podrías agregar la lógica para finalizar esta actividad si es necesario
                         finish();
+
+                        Intent intent1 = new Intent(Cuentas.this, Opciones.class);
+                        startActivity(intent1);
                 });
         }
 
@@ -107,8 +112,15 @@ public class Cuentas extends AppCompatActivity {
                         .addOnFailureListener(e -> {
                                 // Error al agregar el documento
                                 Log.w("CuentasActivity", "Error al guardar la compra", e);
+                                // Mostrar Toast de error
+                                mostrarToast("Error al guardar la cuenta");
                         });
         }
+
+        private void mostrarToast(String mensaje) {
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        }
+
 
         private List<ProductoModel> deserializeProductoModels(String json) {
                 Gson gson = new Gson();
