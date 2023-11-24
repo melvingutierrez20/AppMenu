@@ -26,7 +26,8 @@ public class AdaptadorCategoria extends RecyclerView.Adapter<AdaptadorCategoria.
 
     private final List<CategoriaModel> categoriaModelList;
     private final Context context;
-    private AdapterView.OnItemClickListener itemClickListener;
+    private AdaptadorPlatillo.OnItemClickListener itemClickListener;
+
 
     public AdaptadorCategoria(Context context, List<CategoriaModel> categoriaModelList) {
         this.context = context;

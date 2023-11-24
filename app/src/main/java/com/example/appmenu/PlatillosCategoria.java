@@ -34,6 +34,7 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos);
 
+
         // Inicializar la lista de platillos
         platilloList = new ArrayList<>();
 
@@ -58,6 +59,7 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
 
         // Cargar los platillos
         cargarPlatillos();
+
         carro.setOnClickListener(v->{
             // Al hacer clic en el botón "carro", enviar la cuenta total a la actividad Cuentas
             Intent intent = new Intent(PlatillosCategoria.this, Cuentas.class);
@@ -73,6 +75,7 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
         Gson gson = new Gson();
         return gson.toJson(productoModels);
     }
+
 
 
     // Este método carga los platillos
@@ -117,4 +120,6 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
     public void onCarritoClick(ProductoModel producto) {
 
     }
+
+
 }

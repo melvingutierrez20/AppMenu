@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -25,6 +28,9 @@ public class PlatillosActivity extends AppCompatActivity {
     AdaptadorPlatillo AdaptadorPlatillo;
     private List<ProductoModel> platilloList;
     private Context context;
+    //Configuracion del searchview
+    SearchView searchViewP;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +44,27 @@ public class PlatillosActivity extends AppCompatActivity {
         AdaptadorPlatillo = new AdaptadorPlatillo(platilloList, this);
         rvPlatillos.setLayoutManager(new LinearLayoutManager(this));
         rvPlatillos.setAdapter(AdaptadorPlatillo);
+        //condiguracion del searchview
+        searchViewP = findViewById(R.id.searchView);
+        searchViewP.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //filtrar la lista segun el texto de busqueda
+                BuscarPlatillo(newText);
+                return false;
+            }
+        });
+
 
         FloatingActionButton addProductBtn = findViewById(R.id.AddCategoriaBtn);
+
+        // Obtener la categoría seleccionada de la actividad anterior
+        CategoriaModel categoria = getIntent().getParcelableExtra("categoriaId");
 
         addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +107,27 @@ public class PlatillosActivity extends AppCompatActivity {
     private String obtenerIdProducto(int position) {
         ProductoModel producto = platilloList.get(position);
         return producto.getIdProducto();
+    }
+    //metodo cargar platillo por categoria
+
+    //Para buscar platillo
+    void BuscarPlatillo(String searchText){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        platilloList.clear();
+        buscarCampo(db.collection("products").whereEqualTo("nombreProducto", searchText));
+        buscarCampo(db.collection("products").whereEqualTo("nombreCategoria", searchText));
+       // buscarCampo(db.collection("products").whereEqualTo("nombreProducto", searchText));
+    }
+    void buscarCampo(Query query){
+        query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+           for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+               ProductoModel productoModel = documentSnapshot.toObject(ProductoModel.class);
+               platilloList.add(productoModel);
+           }
+           AdaptadorPlatillo.notifyDataSetChanged();
+        }).addOnFailureListener(e->{
+            Toast.makeText(this, "Error al mostrar", Toast.LENGTH_SHORT).show();
+        });
     }
 
     void cargarPlatillos() {

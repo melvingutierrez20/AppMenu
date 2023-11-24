@@ -71,9 +71,6 @@ public class CategoriasActivity extends AppCompatActivity {
                 });
     }
 
-
-
-
     void eliminarCategoria(String categoriaId) {
         // Utilizar un iterador para evitar ConcurrentModificationException
         Iterator<CategoriaModel> iterator = categoriaModelList.iterator();
@@ -98,6 +95,8 @@ public class CategoriasActivity extends AppCompatActivity {
                     Toast.makeText(this, "Error al eliminar la categoría: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
+
 
 
 
