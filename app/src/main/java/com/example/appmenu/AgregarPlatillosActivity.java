@@ -33,7 +33,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -59,9 +58,7 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
 
     private Uri imageUrl;
 
-    private List<ProductoModel> proList = new ArrayList<>();
     private List<CategoriaModel> categoriaList = new ArrayList<>();
-
     boolean isEditMode = true;
     private TextView tv_Titulo;
 
@@ -138,17 +135,17 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
 
     private void setupEditModePlatillo() {
         isEditMode = getIntent().getBooleanExtra("EDIT_MODE", false);
-        String existingId = getIntent().getStringExtra("idProducto");
+        String existingId = getIntent().getStringExtra("id");
        // tv_Titulo.setText("Editar platillo");
 
         if (isEditMode && existingId != null && !existingId.isEmpty()) {
             tv_Titulo.setText("Editar platillo");
             loadCategories();
-        String existingNombrePlatillo = getIntent().getStringExtra("nombreProducto");
-        String existingDescPlatillo = getIntent().getStringExtra("descripcion");
-        String existingPrecioPlatillo = getIntent().getStringExtra("precio");
-        String existingCategoriaPlatillo = getIntent().getStringExtra("categoriaId");
-        String existingImageUrl = getIntent().getStringExtra("imageUrl");
+        String existingNombrePlatillo = getIntent().getStringExtra("nombrePlatillo");
+        String existingDescPlatillo = getIntent().getStringExtra("descripcionPlatillo");
+        String existingPrecioPlatillo = getIntent().getStringExtra("precioPlatillo");
+        String existingCategoriaPlatillo = getIntent().getStringExtra("categoriaPlatillo");
+        String existingImageUrl = getIntent().getStringExtra("imageUrlPlatillo");
 
         // Llenar los campos de la interfaz de usuario con los datos existentes
         nombreProducto.setText(existingNombrePlatillo);
@@ -332,52 +329,40 @@ public class AgregarPlatillosActivity extends AppCompatActivity {
     private void saveProductData(String nombre, String descripcion, double precio, String categoriaId, String imageUrl, String nombreCategoria) {
         ProductoModel nuevoProducto = new ProductoModel(null, nombre, descripcion, categoriaId, precio, imageUrl, nombreCategoria);
 
+        // Verifica si estamos en modo de edición
+      /*  if (isEditMode) {
+            // Si es modo de edición, actualiza la categoría existente
+            String id = getIntent().getStringExtra("id");
+            Map<String, Object> data = new HashMap<>();
+            data.put("nombrePlatillo", nombre);
+            data.put("descripcionPlatillo", descripcion);
+            data.put("categoriaPlatillo", categoriaId);
+            data.put("precioPlatillo", precio);
+            data.put("imageUrlPlatillo", imageUrl);
 
-        if (isEditMode) {
-            String id = getIntent().getStringExtra("idProducto");
-            isEditMode = true;
-            if (id != null && !id.isEmpty()) {
-                Map<String, Object> data = new HashMap<>();
-                data.put("nombreProducto", nombre);
-                data.put("descripcion", descripcion);
-                data.put("categoriaId", categoriaId);
-                data.put("nombreCategoria", nombreCategoria);
-                data.put("precio", precio);
-               // data.put("imageUrl", imageUrl);
-                // Solo actualiza la URL de la imagen si se seleccionó una nueva
-                if (imageUrl != null && !imageUrl.isEmpty()) {
-                    data.put("imageUrl", imageUrl);
-                }
-                productsRef
-                        .document(id)
-                        .set(data, SetOptions.merge())  // Usar set con SetOptions.merge para actualizar solo los campos proporcionados
-                        .addOnSuccessListener(unused -> {
-                            Toast.makeText(AgregarPlatillosActivity.this, "Platillo actualizado correctamente!", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(AgregarPlatillosActivity.this, PlatillosActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(AgregarPlatillosActivity.this, "Error al actualizar el platillo: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        });
-            }else{
-                productsRef.add(nuevoProducto)
-                        .addOnSuccessListener(documentReference -> {
-                            showMessage("Producto agregado exitosamente");
+            productsRef
+                    .document(id)
+                    .update(data)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(AgregarPlatillosActivity.this, "Platillo actualizado correctamente!", Toast.LENGTH_LONG).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(AgregarPlatillosActivity.this, "Platillo no se actualizo correctamente!", Toast.LENGTH_LONG).show();
+                    });
+        }else {*/
+        productsRef.add(nuevoProducto)
+                .addOnSuccessListener(documentReference -> {
+                    showMessage("Producto agregado exitosamente");
 
-                            // Limpiar la pila de actividades y regresar a la actividad principal
-                            Intent intent = new Intent(AgregarPlatillosActivity.this, PlatillosActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        })
-                        .addOnFailureListener(e -> showMessage("Error al agregar producto: " + e.getMessage()));
-            }
-        }else {
-            Toast.makeText(AgregarPlatillosActivity.this, "Error al cargar id!", Toast.LENGTH_LONG).show();
+                    // Limpiar la pila de actividades y regresar a la actividad principal
+                    Intent intent = new Intent(AgregarPlatillosActivity.this, PlatillosActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
 
+                    // No es necesario llamar a finish() aquí
+                })
+                .addOnFailureListener(e -> showMessage("Error al agregar producto: " + e.getMessage()));
     }
     }
-
-}
+/*}*/

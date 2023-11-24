@@ -150,7 +150,8 @@ public class PlatillosActivity extends AppCompatActivity {
         });
     }
 
-    private void abrirActividadEdicion(ProductoModel platillo) {
+    private void abrirActividadEdicion(
+            ProductoModel platillo) {
         Intent editarIntent = new Intent(context, AgregarPlatillosActivity.class);
         editarIntent.putExtra("EDIT_MODE", true);
         editarIntent.putExtra("idProducto", platillo.getIdProducto());

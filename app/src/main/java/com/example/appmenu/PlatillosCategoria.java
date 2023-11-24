@@ -1,17 +1,20 @@
 package com.example.appmenu;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.util.Iterator;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.gson.Gson;
 
@@ -22,17 +25,21 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
 
     private RecyclerView rvPlatillos;
     private AdaptadorComprarPlatillo adaptadorComprarPlatillo;
+    private AdaptadorPlatillo AdaptadorPlatillo;
 
     private List<ProductoModel> productosSeleccionadosList; // Nueva lista para rastrear productos seleccionados
     private List<ProductoModel> platilloList;
     private TextView tvCuentaTotal;
     private double cuentaTotal = 0.0;
     private ImageButton carro;
+    SearchView searchViewP;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos);
+
 
 
         // Inicializar la lista de platillos
@@ -49,6 +56,21 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
         adaptadorComprarPlatillo = new AdaptadorComprarPlatillo(platilloList, this);
         adaptadorComprarPlatillo.setOnItemClickListener(this); // Establecer el listener
         rvPlatillos.setAdapter(adaptadorComprarPlatillo);
+        searchViewP = findViewById(R.id.searchView);
+
+        AdaptadorPlatillo = new AdaptadorPlatillo(platilloList, this);
+        rvPlatillos.setLayoutManager(new LinearLayoutManager(this));
+        rvPlatillos.setAdapter(AdaptadorPlatillo);
+       searchViewP.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+           @Override
+           public boolean onQueryTextSubmit(String s) {return false;}
+
+           @Override
+           public boolean onQueryTextChange(String newText) {
+               BuscarPlatillo(newText);
+               return false;
+           }
+       });
 
         // Obtener la referencia del TextView para mostrar la cuenta total
         tvCuentaTotal = findViewById(R.id.tvCuentaTotal);
@@ -74,6 +96,25 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
     private String serializeProductoModels(List<ProductoModel> productoModels) {
         Gson gson = new Gson();
         return gson.toJson(productoModels);
+    }
+    void BuscarPlatillo(String searchText){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        platilloList.clear();
+        buscarCampo(db.collection("products").whereEqualTo("nombreProducto", searchText));
+        buscarCampo(db.collection("products").whereEqualTo("nombreCategoria",searchText));
+
+    }
+
+    private void buscarCampo(Query query) {
+        query.get().addOnSuccessListener(queryDocumentSnapshots ->{
+           for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+               ProductoModel ProductoModel = documentSnapshot.toObject(ProductoModel.class);
+               platilloList.add(ProductoModel);
+           }
+           AdaptadorPlatillo.notifyDataSetChanged();
+        }).addOnFailureListener(e->{
+            Toast.makeText(this, "Error al mostrar", Toast.LENGTH_SHORT).show();
+        });
     }
 
 
