@@ -32,9 +32,10 @@ public class Opciones extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Cierra completamente la aplicación
-                System.exit(0);
+                finishAffinity();
             }
         });
+
 
 
 
