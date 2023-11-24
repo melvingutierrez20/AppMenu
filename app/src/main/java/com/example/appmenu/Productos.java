@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlatillosCategoria extends AppCompatActivity implements AdaptadorComprarPlatillo.OnItemClickListener {
+public class Productos extends AppCompatActivity implements AdaptadorComprarPlatillo.OnItemClickListener {
 
     private RecyclerView rvPlatillos;
     private AdaptadorComprarPlatillo adaptadorComprarPlatillo;
@@ -84,7 +84,7 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
 
         carro.setOnClickListener(v->{
             // Al hacer clic en el botón "carro", enviar la cuenta total a la actividad Cuentas
-            Intent intent = new Intent(PlatillosCategoria.this, Cuentas.class);
+            Intent intent = new Intent(Productos.this, Cuentas.class);
             intent.putExtra("cuentaTotal", cuentaTotal);
             intent.putExtra("productosSeleccionados", serializeProductoModels(productosSeleccionadosList));
             startActivity(intent);
@@ -135,7 +135,7 @@ public class PlatillosCategoria extends AppCompatActivity implements AdaptadorCo
                 adaptadorComprarPlatillo.notifyDataSetChanged(); // Cambiado a adaptadorComprarPlatillo
             } else {
                 // Manejar el error
-                Toast.makeText(PlatillosCategoria.this, "Error al cargar los platillos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Productos.this, "Error al cargar los platillos", Toast.LENGTH_SHORT).show();
             }
         });
     }

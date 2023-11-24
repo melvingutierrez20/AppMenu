@@ -22,7 +22,7 @@
         android:theme="@style/Theme.AppMenu"
         tools:targetApi="31">
         <activity
-            android:name=".PlatillosCategoria"
+            android:name=".Productos"
             android:exported="false" />
         <activity
             android:name=".ComprarPlatillo"

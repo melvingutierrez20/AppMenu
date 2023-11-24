@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".PlatillosCategoria">
+    tools:context=".Productos">
 
     <TextView
         android:id="@+id/textpyp"
