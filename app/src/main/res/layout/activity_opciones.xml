@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/baseRosa"
     android:columnCount="2"
-    android:rowCount="5"
+    android:rowCount="4"
     android:gravity="center">
 
     <!-- TextView de Bienvenida -->
@@ -21,7 +21,7 @@
         android:layout_row="0"
         android:layout_column="0"
         android:layout_columnSpan="2"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="16dp"/>
 
     <!-- Contenedor para las imágenes 1 y 2 -->
@@ -139,7 +139,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PLATILLOS Y PRODUCTOS"
+                android:text="PLATILLOS\n Y PRODUCTOS"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:gravity="center" />
@@ -154,7 +154,7 @@
         android:src="@drawable/baseline_logout_24"
         android:layout_gravity="center"
         android:contentDescription="Salir"
-        android:layout_row="4"
+        android:layout_row="3"
         android:layout_column="0"
         android:layout_columnSpan="2"
         android:layout_marginTop="16dp"/>
