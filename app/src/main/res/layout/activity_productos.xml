@@ -23,19 +23,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <Spinner
-        android:id="@+id/spiCategorias"
+    <android.widget.SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginVertical="15dp"
-        android:textSize="13sp"
-        android:gravity="center"
-        android:hint="selecciona la categoria"
-        android:background="@color/verdefondo"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/textpyp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="8dp"
+        android:padding="16dp"
+        android:layout_marginTop="30dp"
+        android:textAlignment="textStart"
         />
 
 
@@ -44,7 +44,7 @@
         android:id="@+id/rvPlatillos"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/spiCategorias"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintBottom_toTopOf="@+id/llCuentaTotal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
