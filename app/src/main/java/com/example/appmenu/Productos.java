@@ -25,14 +25,14 @@ public class Productos extends AppCompatActivity implements AdaptadorComprarPlat
 
     private RecyclerView rvPlatillos;
     private AdaptadorComprarPlatillo adaptadorComprarPlatillo;
-    private AdaptadorPlatillo AdaptadorPlatillo;
+
 
     private List<ProductoModel> productosSeleccionadosList; // Nueva lista para rastrear productos seleccionados
     private List<ProductoModel> platilloList;
     private TextView tvCuentaTotal;
     private double cuentaTotal = 0.0;
     private ImageButton carro;
-    SearchView searchViewP;
+
 
 
     @Override
@@ -56,21 +56,9 @@ public class Productos extends AppCompatActivity implements AdaptadorComprarPlat
         adaptadorComprarPlatillo = new AdaptadorComprarPlatillo(platilloList, this);
         adaptadorComprarPlatillo.setOnItemClickListener(this); // Establecer el listener
         rvPlatillos.setAdapter(adaptadorComprarPlatillo);
-        searchViewP = findViewById(R.id.searchView);
 
-        AdaptadorPlatillo = new AdaptadorPlatillo(platilloList, this);
-        rvPlatillos.setLayoutManager(new LinearLayoutManager(this));
-        rvPlatillos.setAdapter(AdaptadorPlatillo);
-       searchViewP.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-           @Override
-           public boolean onQueryTextSubmit(String s) {return false;}
 
-           @Override
-           public boolean onQueryTextChange(String newText) {
-               BuscarPlatillo(newText);
-               return false;
-           }
-       });
+
 
         // Obtener la referencia del TextView para mostrar la cuenta total
         tvCuentaTotal = findViewById(R.id.tvCuentaTotal);
@@ -97,25 +85,7 @@ public class Productos extends AppCompatActivity implements AdaptadorComprarPlat
         Gson gson = new Gson();
         return gson.toJson(productoModels);
     }
-    void BuscarPlatillo(String searchText){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        platilloList.clear();
-        buscarCampo(db.collection("products").whereEqualTo("nombreProducto", searchText));
-        buscarCampo(db.collection("products").whereEqualTo("nombreCategoria",searchText));
 
-    }
-
-    private void buscarCampo(Query query) {
-        query.get().addOnSuccessListener(queryDocumentSnapshots ->{
-           for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-               ProductoModel ProductoModel = documentSnapshot.toObject(ProductoModel.class);
-               platilloList.add(ProductoModel);
-           }
-           AdaptadorPlatillo.notifyDataSetChanged();
-        }).addOnFailureListener(e->{
-            Toast.makeText(this, "Error al mostrar", Toast.LENGTH_SHORT).show();
-        });
-    }
 
 
 
